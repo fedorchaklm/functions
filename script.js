@@ -99,7 +99,7 @@ function generateKey(length, characters) {
 }
 
 function printRandomKey() {
-  const str = getUserInput("Enter the characters set correctly", isValidString).replace(" ", '');
+  const str = (getUserInput("Enter the characters set correctly", isValidString)).replace(/\s/g, "");
   const keyLength = Number(getUserInput("Enter the key lenght, more then 0", isValidNumber));
 
   document.write(`
