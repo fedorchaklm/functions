@@ -46,12 +46,8 @@ printPow();
 // Завдання 2. Реалізуйте функцію removeElement
 // Реалізуйте функцію removeElement(array, item), щоб видалити елемент item з масиву array.
 
-function removeElement(array, item) {
-  let index = array.indexOf(item);
-  while (index !== -1) {
-    array.splice(index, 1);
-    index = array.indexOf(item);
-  }
+function removeElement(array, index) {
+  array.splice(index - 1, 1);
   return array;
 }
 
@@ -62,21 +58,16 @@ function printArrayAfterDeleteingElement() {
   );
 
   for (let i = 0; i < arrLength; i++) {
-    const number = Number(
-      getUserInput(`${i + 1} element of array`, isValidNumber)
-    );
+    const number = Number(getUserInput(`${i + 1} element of array`, isValidNumber));
     array.push(number);
   }
 
-  const element = Number(getUserInput(
-    `Enter a value from array [${array}] which you want to delete`, 
-    (input) => isValidNumber(input) && array.includes(Number(input)))
-  );
+  const element = Number(getUserInput(`Enter what element of array do  you want to delete from 1 to ${arrLength}`, (input) => isValidArray(input) && Number(input) <= arrLength));
 
   document.write(`
     <p style="font-size: 2rem">Your entered array is [${array}]</p>
     <p style="font-size: 2rem">
-      You want to delete ${element}
+      You want to delete ${element} element
     </p>
     <p style="font-size: 2rem">
       New array is [${removeElement(array, element)}]
@@ -98,16 +89,19 @@ function generateKey(length, characters) {
   return key;
 }
 
+const str = "abcdefghijklmnopqrstuvwxyz0123456789";
+
 function printRandomKey() {
-  const str = (getUserInput("Enter the characters set correctly", isValidString)).replace(/\s/g, "");
-  const keyLength = Number(getUserInput("Enter the key lenght, more then 0", isValidNumber));
+  const keyLength = Number(
+    getUserInput(
+      "Enter the key lenght, more then 0",
+      (input) => isValidNumber(input) && Number(input) > 0
+    )
+  );
 
   document.write(`
     <p style="font-size: 2rem">
-      Your characters set is <b>${str}</b>
-    </p>
-    <p style="font-size: 2rem">
-      The ${keyLength}-key of random characters from ${str} is <b>${generateKey(keyLength, str)}</b>
+      The ${keyLength}-key of random characters is <b>${generateKey(keyLength, str)}</b>
     </p>
   `);
 }
